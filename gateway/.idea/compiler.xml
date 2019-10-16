@@ -10,6 +10,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="gateway.main" target="1.8" />
+      <module name="gateway.test" target="1.8" />
       <module name="gs-gateway" target="1.8" />
     </bytecodeTargetLevel>
   </component>
