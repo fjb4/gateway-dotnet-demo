@@ -20,6 +20,10 @@ public class Application {
                         .path("/get")
                         .filters(f -> f.addRequestHeader("Hello", "World"))
                         .uri("http://httpbin.org:80"))
+                .route(p -> p
+                        .path("/weatherforecast")
+                        .filters(f -> f.addRequestHeader("Hello", "World"))
+                        .uri("http://localhost:5000"))
                 .build();
     }
 }
