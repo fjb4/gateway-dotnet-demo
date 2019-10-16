@@ -21,8 +21,10 @@ public class Application {
                         .filters(f -> f.addRequestHeader("Hello", "World"))
                         .uri("http://httpbin.org:80"))
                 .route(p -> p
-                        .path("/weatherforecast")
-                        .filters(f -> f.addRequestHeader("Hello", "World"))
+                        .path("/forecast")
+                        .filters(f -> f
+                            .addResponseHeader("X-Debug", "Request forwarded by Spring Cloud Gateway")
+                            .rewritePath("/forecast", "/weatherforecast"))
                         .uri("http://localhost:5000"))
                 .build();
     }
