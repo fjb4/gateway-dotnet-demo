@@ -4,7 +4,8 @@ This is a _simple_ demonstration of using Spring Cloud Gateway to proxy requests
 
 ### Prerequisites
 
-- TODO: Java Prerequisites
+- Java
+- Maven
 - [.NET Core 3.0 SDK](https://dotnet.microsoft.com/download)
 
 ### Running
@@ -14,7 +15,7 @@ This is a _simple_ demonstration of using Spring Cloud Gateway to proxy requests
   - `dotnet watch run`
 - Run Spring Cloud Gateway
   - In another terminal window, navigate to the `gateway` folder
-  - `./gradlew bootRun`
+  - `mvn spring-boot:run`
 
 ### Tests
 - Verify the .NET Core API by executing `curl -v http://localhost:5000/weatherforecast`
