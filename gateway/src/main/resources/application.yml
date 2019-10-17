@@ -1,18 +1,47 @@
 spring:
+  jmx:
+    enabled: false
   cloud:
     gateway:
+      default-filters:
+      - AddResponseHeader=X-Debug, Hello from Spring Cloud Gateway
       routes:
       - id: hello-world
         uri: "http://httpbin.org:80"
         predicates:
-        - Path=/get
+        - Path=/hello
         filters:
         - AddRequestHeader=X-Hello, World
-        - AddResponseHeader=X-Debug, Hello from Spring Cloud Gateway
+        - SetPath=/get
       - id: weather-forecast
         uri: "http://localhost:5000"
         predicates:
         - Path=/forecast
         filters:
-        - RewritePath=/forecast, /weatherforecast
-        - AddResponseHeader=X-Debug, Hello from Spring Cloud Gateway
+        - SetPath=/weatherforecast
+      - id: weighted-route-1
+        uri: "http://echo.jsontest.com:80"
+        predicates:
+        - Path=/weighted
+        - Weight=group1, 5
+        filters:
+        - SetPath=/weighted-route/1
+        - AddRequestHeader=X-Debug, Weighted Route 1
+      - id: weighted-route-2
+        uri: "http://echo.jsontest.com:80"
+        predicates:
+        - Path=/weighted
+        - Weight=group1, 5
+        filters:
+        - SetPath=/weighted-route/2
+        - AddRequestHeader=X-Debug, Weighted Route 2
+  
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+    reactor.netty: DEBUG
+  
+management.endpoints.web.exposure.include: '*'
