@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: hello-world
+        uri: "http://httpbin.org:80"
+        predicates:
+        - Path=/get
+        filters:
+        - AddRequestHeader=X-Hello, World
+        - AddResponseHeader=X-Debug, Hello from Spring Cloud Gateway
+      - id: weather-forecast
+        uri: "http://localhost:5000"
+        predicates:
+        - Path=/forecast
+        filters:
+        - RewritePath=/forecast, /weatherforecast
+        - AddResponseHeader=X-Debug, Hello from Spring Cloud Gateway
